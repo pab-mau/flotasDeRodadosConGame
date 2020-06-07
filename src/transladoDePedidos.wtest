@@ -1,0 +1,7 @@
+import trafic.*
+import otrosRodados.*
+test "testX" {
+
+	assert.that(true)
+
+}

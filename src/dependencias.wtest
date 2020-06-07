@@ -1,0 +1,26 @@
+import trafic.*
+import otrosRodados.*
+import dependencia.*
+
+test "dependenciasDeportes" {
+    
+    
+    const cachito = new ChevroletCorsa(colorE = "rojo")
+    const corsa1 = new ChevroletCorsa(colorE= "azul")
+    const corsa2 = new ChevroletCorsa(colorE= "verde")
+    const kwid = new RenaultKwid(tieneTanqueAdicional = true)
+    const autoEspecial = new AutosEspeciales(capacidadE = 5, velocidad = 160, pesoE = 1200 , colorE = "beige")
+    const dependenciaDeportes = new Dependencia(cantidadPersonas = 45)
+    dependenciaDeportes.agregarAFlota(cachito)
+    dependenciaDeportes.agregarAFlota(corsa1)
+    dependenciaDeportes.agregarAFlota(corsa2)
+    dependenciaDeportes.agregarAFlota(kwid)
+    dependenciaDeportes.agregarAFlota(autoEspecial)
+    
+	assert.that(dependenciaDeportes.estaBienEquipada())
+	assert.equals(4 , dependenciaDeportes.capacidadTotalEnColor("rojo"))
+    assert.equals("beige", dependenciaDeportes.colorDelRodadoMasRapido())
+    assert.equals(-25 , dependenciaDeportes.capacidadFaltante())
+    assert.that(dependenciaDeportes.esGrande())
+    
+}
