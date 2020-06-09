@@ -1,10 +1,12 @@
 import trafic.*
 import otrosRodados.*
+import pedidos.*
 
 class Dependencia {
 
 	var property cantidadPersonas
 	var flota = []
+	var registroPedidos = []
 	
 	method agregarAFlota(rodado) { flota.add(rodado)}
 	
@@ -39,7 +41,36 @@ class Dependencia {
 	method esGrande() {
 		
 		return cantidadPersonas >= 40 and flota.size() >= 5
-	}	
+	}
+	
+	method agregarPedido (pedido) { registroPedidos.add(pedido)}
+	
+	method quitarPedido(pedido) { registroPedidos.remove(pedido)}
+	
+	method 	totalPasajerosEnPedidos() {
+		
+		return registroPedidos.sum({p=>p.cantidadPasajerosATransportar()})
+	}
+	
+
+	
+	
+	method pedidosQueNoSatisface() {
+		
+		
+		return registroPedidos.filter({p=>p.puedeSatisfacerPedido(flota)})
+		
+	}
+		
+	method colorIncompatiblePedidos(color) {
+		
+		return registroPedidos.all({p=>p.coloresIncompatibles().contains(color)})
+	}
+	
+	method relajarLosPedidos() {
+		
+		registroPedidos.forEach({p=>p.relajar()})
+	}
 		
 }
 	

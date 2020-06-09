@@ -1,0 +1,32 @@
+import otrosRodados.*
+import pedidos.*
+import trafic.*
+import dependencia.*
+
+test "pedidos" {
+	
+const corsa = new ChevroletCorsa(colorE="negro")
+const cachito = new ChevroletCorsa(colorE="rojo")
+const pedido = new Pedidos(distanciaARecorrer= 960, tiempoMaximo =8,cantidadPasajerosATransportar=4,coloresIncompatibles = #{"azul","negro"})
+	assert.that(pedido.puedeSatisfacerPedido(cachito))
+    assert.notThat(pedido.puedeSatisfacerPedido(corsa))
+}
+
+test "dependencia2" {
+	
+	trafic.ponerle(interiorComodo,motorPulenta)
+	const corsa = new ChevroletCorsa(colorE="negro")
+    const cachito = new ChevroletCorsa(colorE="rojo")
+    const pedido = new Pedidos(distanciaARecorrer= 960, tiempoMaximo =8,cantidadPasajerosATransportar=4,coloresIncompatibles = #{"azul","negro"})
+	const pedido2 = new Pedidos(distanciaARecorrer= 700, tiempoMaximo =7,cantidadPasajerosATransportar=5,coloresIncompatibles = #{"azul","rojo"})
+	const dependencia1 = new Dependencia()
+	dependencia1.agregarAFlota(cachito)
+	dependencia1.agregarAFlota(corsa)
+	dependencia1.agregarAFlota(trafic)
+	dependencia1.agregarPedido(pedido)
+	dependencia1.agregarPedido(pedido2)
+	assert.equals(9, dependencia1.totalPasajerosEnPedidos())
+	assert.that(dependencia1.colorIncompatiblePedidos("azul"))
+	assert.notThat(dependencia1.colorIncompatiblePedidos("blanco"))
+	
+}
